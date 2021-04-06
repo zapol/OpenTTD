@@ -86,6 +86,7 @@ void DrawRoadVehDetails(const Vehicle *v, int left, int right, int y)
 				SetDParam(0, u->cargo_type);
 				SetDParam(1, u->cargo.StoredCount());
 				SetDParam(2, u->cargo.Source());
+				SetDParam(3, u->cargo.DaysInTransit());
 				str = STR_VEHICLE_DETAILS_CARGO_FROM;
 				feeder_share += u->cargo.FeederShare();
 			}
@@ -106,6 +107,7 @@ void DrawRoadVehDetails(const Vehicle *v, int left, int right, int y)
 			SetDParam(0, v->cargo_type);
 			SetDParam(1, v->cargo.StoredCount());
 			SetDParam(2, v->cargo.Source());
+			SetDParam(3, v->cargo.DaysInTransit());
 			str = STR_VEHICLE_DETAILS_CARGO_FROM;
 			feeder_share += v->cargo.FeederShare();
 		}

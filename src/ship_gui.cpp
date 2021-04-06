@@ -78,6 +78,7 @@ void DrawShipDetails(const Vehicle *v, int left, int right, int y)
 		SetDParam(0, v->cargo_type);
 		SetDParam(1, v->cargo.StoredCount());
 		SetDParam(2, v->cargo.Source());
+		SetDParam(3, v->cargo.DaysInTransit());
 		str = STR_VEHICLE_DETAILS_CARGO_FROM;
 	}
 	DrawString(left, right, y + 2 * FONT_HEIGHT_NORMAL + 1, str);

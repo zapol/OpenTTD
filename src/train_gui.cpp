@@ -165,6 +165,7 @@ struct CargoSummaryItem {
 	StringID subtype; ///< STR_EMPTY if none
 	uint capacity;    ///< Amount that can be carried
 	uint amount;      ///< Amount that is carried
+	uint daysInTransit;	
 	StationID source; ///< One of the source stations
 
 	/** Used by CargoSummary::Find() and similar functions */
@@ -203,7 +204,8 @@ static void TrainDetailsCargoTab(const CargoSummaryItem *item, int left, int rig
 		SetDParam(0, item->cargo);
 		SetDParam(1, item->amount);
 		SetDParam(2, item->source);
-		SetDParam(3, _settings_game.vehicle.freight_trains);
+		SetDParam(3, item->daysInTransit);
+		SetDParam(4, _settings_game.vehicle.freight_trains);
 		str = FreightWagonMult(item->cargo) > 1 ? STR_VEHICLE_DETAILS_CARGO_FROM_MULT : STR_VEHICLE_DETAILS_CARGO_FROM;
 	} else {
 		SetDParam(0, STR_QUANTITY_N_A);
@@ -285,10 +287,12 @@ static void GetCargoSummaryOfArticulatedVehicle(const Train *v, CargoSummary *su
 			item->capacity = 0;
 			item->amount = 0;
 			item->source = INVALID_STATION;
+			item->daysInTransit = 0;
 		}
 
 		item->capacity += v->cargo_cap;
 		item->amount += v->cargo.StoredCount();
+		item->daysInTransit = v->cargo.DaysInTransit();
 		if (item->source == INVALID_STATION) item->source = v->cargo.Source();
 	} while ((v = v->Next()) != nullptr && v->IsArticulatedPart());
 }
